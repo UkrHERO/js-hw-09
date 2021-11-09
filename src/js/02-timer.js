@@ -7,8 +7,8 @@ const daysEl = document.querySelector('[data-days]');
 const hoursEl = document.querySelector('[data-hours]');
 const minutesEl = document.querySelector('[data-minutes]');
 const secondsEl = document.querySelector('[data-seconds]');
-const timer = document.querySelector('.timer');
 const head = document.querySelector('head');
+
 head.insertAdjacentHTML(
   'beforeend',
   `<style> .timer {
@@ -55,6 +55,12 @@ const fp = flatpickr('#datetime-picker', options);
 
 let isActive = false;
 let intervalId = null;
+const def = {
+  days: '00',
+  hours: '00',
+  minutes: '00',
+  seconds: '00',
+};
 
 function onStartClick() {
   if (isActive) {
@@ -69,8 +75,9 @@ function onStartClick() {
     console.log(convertMs(deltaTime));
     console.log(futureTime);
 
-    if (deltaTime <= 2) {
+    if (deltaTime <= 0) {
       clearInterval(intervalId);
+      updateTimer(def);
     }
   }, 1000);
 }
